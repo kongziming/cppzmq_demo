@@ -8,6 +8,8 @@
 2. 轻量。使用cppzmq仅需包含头文件zmq.hpp（有时可能需要zmq_addon.hpp）；
 3. zmq.hpp主要是对libzmq的C接口进行直接映射，zmq_addon.hpp提供额外更高级别的抽象。
 
+工程中提供了ZMQ常用的消息模式示例，代码简明直观，方便开发者学习和使用。
+
 ## 环境要求
 
 - 构建工具：CMake，版本大于等于3.10.0
@@ -46,6 +48,9 @@ cppzmq_demo
 |  6   | demo06      | Publish Subscribe，发布-订阅模式。                           |
 |  7   | demo07      | Publish Subscribe Proxy，发布-订阅模式中加入代理。           |
 |  8   | demo08      | Dealer Router。                                              |
-|  9   | demo_json   | 使用ZeroMQ发送和接收json数据的示例，该示例使用QJson，依赖Qt库 |
-|  10  | demo_pollin | 轮询的用法。                                                 |
+|  9   | demo_inproc | 通过inproc的方式进行节点连接                                 |
+|  10  | demo_json   | 使用ZeroMQ发送和接收json数据的示例，该示例使用QJson，依赖Qt库 |
+|  11  | demo_pollin | 轮询的用法。                                                 |
+
+
 

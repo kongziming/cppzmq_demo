@@ -7,12 +7,13 @@
 
 using namespace std::chrono_literals;
 
+static zmq::context_t ctx;
+
 auto func = [](std::string threadId)
 {
     std::cout << threadId << "Client Starting...\n";
 
     // 客户端创建REQ socket
-    zmq::context_t ctx;
     zmq::socket_t clientSock(ctx, zmq::socket_type::req);
     clientSock.connect("tcp://127.0.0.1:5555");
 

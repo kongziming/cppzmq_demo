@@ -21,6 +21,5 @@ if(Qt5Widgets_FOUND)
 endif()
 # Pollin
 add_subdirectory(demo_pollin)
-
-# Pollout
-#add_subdirectory(demo13)
+# 通过inproc的方式进行节点连接
+add_subdirectory(demo_inproc)
