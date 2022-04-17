@@ -19,3 +19,6 @@ target_link_libraries(
 	PRIVATE
 	cppzmq
 )
+
+set_property(TARGET demo03_Request PROPERTY FOLDER "03_req_rep")
+set_property(TARGET demo03_Reply PROPERTY FOLDER "03_req_rep")

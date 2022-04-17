@@ -1,4 +1,4 @@
-#include <zmq.hpp>
+ï»¿#include <zmq.hpp>
 #include <iostream>
 #include <string>
 #include <QJsonDocument>
@@ -9,18 +9,18 @@ int main()
 {
     std::cout << "Server Starting...\n";
 
-    // ·þÎñÆ÷´´½¨REP sock
+    // æœåŠ¡å™¨åˆ›å»ºREP sock
     zmq::context_t ctx;
     zmq::socket_t serverSock(ctx, zmq::socket_type::rep);
     serverSock.bind("tcp://127.0.0.1:5555");
 
     while (true)
     {
-        // ½ÓÊÕ´Ó¿Í»§¶Ë·¢À´µÄÏûÏ¢
+        // æŽ¥æ”¶ä»Žå®¢æˆ·ç«¯å‘æ¥çš„æ¶ˆæ¯
         zmq::message_t recvMessage;
         serverSock.recv(recvMessage);
 
-        // ½âÎö½ÓÊÕµ½µÄJsonÊý¾Ý
+        // è§£æžæŽ¥æ”¶åˆ°çš„Jsonæ•°æ®
         QByteArray bytes = static_cast<char*>(recvMessage.data());
         QJsonDocument jsonDoc = QJsonDocument::fromJson(bytes);
         if (!jsonDoc.isObject())
@@ -39,7 +39,7 @@ int main()
         }
         std::cout << std::endl;
 
-        // ·¢ËÍÏûÏ¢µ½¿Í»§¶Ë
+        // å‘é€æ¶ˆæ¯åˆ°å®¢æˆ·ç«¯
         zmq::message_t replyMessage(name);
         serverSock.send(replyMessage, zmq::send_flags::none);
     }

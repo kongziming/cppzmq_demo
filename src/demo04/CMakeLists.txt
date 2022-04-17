@@ -19,3 +19,6 @@ target_link_libraries(
 	PRIVATE
 	cppzmq
 )
+
+set_property(TARGET demo04_Pair1 PROPERTY FOLDER "04_pair")
+set_property(TARGET demo04_Pair2 PROPERTY FOLDER "04_pair")

@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <string>
 #include <chrono>
 #include <random>
@@ -14,18 +14,18 @@ int main()
 {
 	std::cout << "Client Starting...\n";
 
-	// ¿Í»§¶Ë´´½¨REQ socket
+	// å®¢æˆ·ç«¯åˆ›å»ºREQ socket
 	zmq::context_t ctx;
 	zmq::socket_t clientSock(ctx, zmq::socket_type::req);
 	clientSock.connect("tcp://127.0.0.1:5555");
 
 	while (true)
 	{
-		// ´´½¨Json
+		// åˆ›å»ºJson
 		QJsonArray hobbyArray = { "Sing", "Dance", "Rap", "Basketball" };
 		QJsonObject jsonObj
 		{
-			{"name", "SongZuhao"},
+			{"name", "å®‹ç¥–æµ©"},
 			{"age", 38},
 			{"hobby", hobbyArray}
 		};
@@ -33,11 +33,11 @@ int main()
 		QByteArray bytes = jsonDoc.toJson();
 		int aaa = bytes.size();
 
-		// ·¢ËÍÏûÏ¢µ½·þÎñÆ÷
+		// å‘é€æ¶ˆæ¯åˆ°æœåŠ¡å™¨
 		zmq::message_t message(bytes.data(), bytes.size() + 1);
 		clientSock.send(message, zmq::send_flags::none);
 
-		// ½ÓÊÕ´Ó·þÎñÆ÷·µ»ØµÄÏûÏ¢
+		// æŽ¥æ”¶ä»ŽæœåŠ¡å™¨è¿”å›žçš„æ¶ˆæ¯
 		zmq::message_t recvMessage;
 		clientSock.recv(recvMessage);
 		std::cout << "Sending Json Data..."

@@ -1,16 +1,15 @@
 cmake_minimum_required(VERSION 3.10.0)
 
+# 查找vcpkg，必须写在project命令之前
 set(VCPKG_ROOT "" CACHE PATH "")
 if(NOT EXISTS ${VCPKG_ROOT}/.vcpkg-root)
 	message(FATAL_ERROR "请指定VCPKG根目录")
 endif()
 set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
 
-project(ZMQDemo)
+project(ZeroMQ_Demo)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # 设置库和可执行文件的输出文件
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -35,40 +34,13 @@ else()
 	endif()
 endif()
 
+# 查找cppzmq
 find_package(cppzmq CONFIG REQUIRED)
 
-# 查找Qt的库
-if(CMAKE_SYSTEM MATCHES "Windows")
-	# VS2015及以后使用Qt5
-	if(MSVC_VERSION GREATER_EQUAL 1900)
-		set(QT_VERSION "5" CACHE STRING "Qt Version")
-	# VS2010使用Qt4
-	else()
-		set(QT_VERSION "4" CACHE STRING "Qt Version")
-	endif()
-else()
-	set(QT_VERSION "5" CACHE STRING "Qt Version")
-endif()
-set_property(CACHE QT_VERSION PROPERTY STRINGS 4 5)
-if(QT_VERSION VERSION_GREATER "4")
-	find_package(Qt5 COMPONENTS Core Widgets Xml Network OpenGL)
-else()
-	find_package(Qt4)
+# 查找Qt
+option(USE_QT "Whether or not use qt" OFF)
+if(USE_QT)
+	find_package(Qt5 COMPONENTS Core Widgets)
 endif()
 
-# 版本查询
-add_subdirectory(demo01)
-# Request Reply模式
-add_subdirectory(demo02)
-# Request Reply模式：用于演示可以有多个Request
-add_subdirectory(demo03)
-# 互斥Pair模式
-add_subdirectory(demo04)
-# Push Pull模式
-add_subdirectory(demo05)
-# Publish Subscribe模式
-add_subdirectory(demo06)
-# Dealer Router模式
-add_subdirectory(demo07)
-# 通过zmq发送和接收Json数据
-add_subdirectory(demo10)
+add_subdirectory(src)

@@ -10,3 +10,5 @@ target_link_libraries(
 	PRIVATE
 	cppzmq
 )
+
+set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER "01_version")

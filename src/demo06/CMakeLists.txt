@@ -19,3 +19,6 @@ target_link_libraries(
 	PRIVATE
 	cppzmq
 )
+
+set_property(TARGET demo06_Publisher PROPERTY FOLDER "06_pub_sub")
+set_property(TARGET demo06_Subscriber PROPERTY FOLDER "06_pub_sub")

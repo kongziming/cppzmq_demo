@@ -1,39 +1,51 @@
-## Request Reply
+# ZeroMQ用法示例
 
-请求-回复模式
+## 概述
 
-客户端向服务器发出请求之后，必须要等待服务器的回复，否则会出错。
+示例使用[cppzmq](https://github.com/zeromq/cppzmq)的接口编写，cppzmq是基于libzmq的封装的高级别API，它有如下特点：
 
-## 互斥Pair
+1. cppzmq将libzmq的C语言API转化为C++接口，具有类型安全的优点，并且更利于资源管理；
+2. 轻量。使用cppzmq仅需包含头文件zmq.hpp（有时可能需要zmq_addon.hpp）；
+3. zmq.hpp主要是对libzmq的C接口进行直接映射，zmq_addon.hpp提供额外更高级别的抽象。
 
-这种模式下，客户端向服务器发出请求，不需要等待。
+## 环境要求
 
-但这种情况下，pair是互斥的，只能有一个pair与另一个pair建立连接，不能有第三者出现。
+- 构建工具：CMake，版本大于等于3.10.0
+- 编译工具：Visual Studio 2015及以上，需要C++11环境
 
-## Push Pull
+**依赖库：**
 
-推拉模式，也叫管道模式。
+- cppzmq（通过vcpkg安装，会同时安装libzmq库）
+- Qt5（可选）
 
-这种模式下数据是顺流而下的，push socket无法接收数据。
+## 代码结构
 
-消息是公平队列
+```
+cppzmq_demo
+│
+├────src『源码』
+|     |
+|     ├───demo01『示例1』
+|     ├───demo02『示例2』
+|     └───......『其它示例』
+|
+├────docs『ZMQ相关文档』
+|
+└────README.md『使用说明』
+```
 
-## 发布订阅
+## 示例说明
 
-所有订阅者都会收到消息
+| 序号 | 示例名称    | 示例简介                                                     |
+| :--: | ----------- | ------------------------------------------------------------ |
+|  1   | demo01      | 获取ZeroMQ版本。                                             |
+|  2   | demo02      | Requset Reply，请求-响应模式。                               |
+|  3   | demo03      | Requset Reply，请求-响应模式，示例中说明了可以发出多个请求。 |
+|  4   | demo04      | Exclusive Pair，互斥对模式。                                 |
+|  5   | demo05      | Pull Push，推拉/管道模式。                                   |
+|  6   | demo06      | Publish Subscribe，发布-订阅模式。                           |
+|  7   | demo07      | Publish Subscribe Proxy，发布-订阅模式中加入代理。           |
+|  8   | demo08      | Dealer Router。                                              |
+|  9   | demo_json   | 使用ZeroMQ发送和接收json数据的示例，该示例使用QJson，依赖Qt库 |
+|  10  | demo_pollin | 轮询的用法。                                                 |
 
-之前未收到的消息将不会再收到
-
-需要订阅主题
-
-如果不订阅主题，则不会收到任何消息；
-
-如果订阅空字符串主题，则会收到所有消息；
-
-可订阅多个主题，会收到这些主题的消息；
-
-运行中可随时订阅/取消订阅主题。
-
-## Dealer Router
-
-router为它接收到消息的每个socket分配一个默认的标识符，
