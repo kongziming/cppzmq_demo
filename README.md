@@ -71,5 +71,11 @@ cppzmq_demo
 |  10  | demo_json   | 使用ZeroMQ发送和接收json数据的示例，该示例使用QJson，依赖Qt库 |
 |  11  | demo_pollin | 轮询的用法                                                   |
 
+### demo_protobuf
 
+首先编写proto文件，然后生成C++代码：
+
+```
+protoc.exe --cpp_out=. info.proto
+```
 

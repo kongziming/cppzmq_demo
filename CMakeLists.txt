@@ -43,4 +43,10 @@ if(USE_QT)
 	find_package(Qt5 COMPONENTS Core Widgets)
 endif()
 
+# 查找Protobuf
+option(USE_PROTOBUF "Whether or not use protobuf" OFF)
+if(USE_PROTOBUF)
+	find_package(Protobuf CONFIG REQUIRED)
+endif()
+
 add_subdirectory(src)
