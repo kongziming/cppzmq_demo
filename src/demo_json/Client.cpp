@@ -25,21 +25,23 @@ int main()
 		QJsonArray hobbyArray = { "Sing", "Dance", "Rap", "Basketball" };
 		QJsonObject jsonObj
 		{
-			{"name", "宋祖浩"},
+			{"name", QString::fromLocal8Bit("宋祖浩")},
 			{"age", 38},
 			{"hobby", hobbyArray}
 		};
 		QJsonDocument jsonDoc(jsonObj);
 		QByteArray bytes = jsonDoc.toJson();
-		int aaa = bytes.size();
 
 		// 发送消息到服务器
-		zmq::message_t message(bytes.data(), bytes.size() + 1);
+		zmq::message_t message(bytes.data(), bytes.size());
 		clientSock.send(message, zmq::send_flags::none);
 
 		// 接收从服务器返回的消息
 		zmq::message_t recvMessage;
 		clientSock.recv(recvMessage);
+		//QByteArray bytes1(recvMessage.data<char>(), recvMessage.size());
+		//QString strT = QString::fromUtf8(bytes1);
+		//QString recvMsgString = QString::fromLocal8Bit(recvMessage.data<char>());
 		std::cout << "Sending Json Data..."
 			<< "Receive " << recvMessage.to_string() << std::endl;
 

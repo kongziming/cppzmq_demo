@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <string>
 #include <chrono>
 #include <random>
@@ -11,25 +11,25 @@ int main()
 {
     std::cout << "Client Starting...\n";
 
-    // ¿Í»§¶Ë´´½¨REQ socket
+    // å®¢æˆ·ç«¯åˆ›å»ºREQ socket
     zmq::context_t ctx;
     zmq::socket_t clientSock(ctx, zmq::socket_type::req);
     clientSock.connect("tcp://127.0.0.1:5555");
 
     std::random_device rd;
     std::mt19937 mt(rd());
-    std::uniform_int_distribution<int> dist(0, 100);// 0µ½100µÄËæ»úÊı
+    std::uniform_int_distribution<int> dist(0, 100);// 0åˆ°100çš„éšæœºæ•°
 
     while (true)
     {
-        // ´´½¨Ëæ»úÊı
+        // åˆ›å»ºéšæœºæ•°
         const int randomNum = dist(mt);
 
-        // ·¢ËÍÏûÏ¢µ½·şÎñÆ÷
+        // å‘é€æ¶ˆæ¯åˆ°æœåŠ¡å™¨
         zmq::message_t message(std::to_string(randomNum));
         clientSock.send(message, zmq::send_flags::none);
 
-        // ½ÓÊÕ´Ó·şÎñÆ÷·µ»ØµÄÏûÏ¢
+        // æ¥æ”¶ä»æœåŠ¡å™¨è¿”å›çš„æ¶ˆæ¯
         zmq::message_t recvMessage;
         clientSock.recv(recvMessage);
         std::cout << "Sending: " << randomNum

@@ -18,6 +18,11 @@
 **依赖库：**
 
 - cppzmq（通过vcpkg安装，会同时安装libzmq库）
+
+  ```
+  vcpkg install cppzmq:x64-windows
+  ```
+
 - Qt5（可选）
 
 ## 代码结构
@@ -36,21 +41,35 @@ cppzmq_demo
 └────README.md『使用说明』
 ```
 
+## 编译指南
+
+首先用CMake来构建工程：
+
+<img src="./docs/images/cmake1.png" alt="cmake1" style="zoom:80%;" />
+
+构建过程中会提示，需要指定vcpkg的目录。
+
+接下来填写vcpkg的根目录：
+
+<img src="./docs/images/cmake2.png" alt="cmake2" style="zoom:80%;" />
+
+最后正常构建、编译即可。
+
 ## 示例说明
 
 | 序号 | 示例名称    | 示例简介                                                     |
 | :--: | ----------- | ------------------------------------------------------------ |
-|  1   | demo01      | 获取ZeroMQ版本。                                             |
-|  2   | demo02      | Requset Reply，请求-响应模式。                               |
-|  3   | demo03      | Requset Reply，请求-响应模式，示例中说明了可以发出多个请求。 |
-|  4   | demo04      | Exclusive Pair，互斥对模式。                                 |
-|  5   | demo05      | Pull Push，推拉/管道模式。                                   |
-|  6   | demo06      | Publish Subscribe，发布-订阅模式。                           |
-|  7   | demo07      | Publish Subscribe Proxy，发布-订阅模式中加入代理。           |
-|  8   | demo08      | Dealer Router。                                              |
+|  1   | demo01      | 获取ZeroMQ版本                                               |
+|  2   | demo02      | Requset Reply，请求-响应模式                                 |
+|  3   | demo03      | Requset Reply，请求-响应模式，示例中说明了可以发出多个请求   |
+|  4   | demo04      | Exclusive Pair，互斥对模式                                   |
+|  5   | demo05      | Pull Push，推拉/管道模式                                     |
+|  6   | demo06      | Publish Subscribe，发布-订阅模式                             |
+|  7   | demo07      | Publish Subscribe Proxy，发布-订阅模式中加入代理             |
+|  8   | demo08      | Dealer Router                                                |
 |  9   | demo_inproc | 通过inproc的方式进行节点连接                                 |
 |  10  | demo_json   | 使用ZeroMQ发送和接收json数据的示例，该示例使用QJson，依赖Qt库 |
-|  11  | demo_pollin | 轮询的用法。                                                 |
+|  11  | demo_pollin | 轮询的用法                                                   |
 
 
 

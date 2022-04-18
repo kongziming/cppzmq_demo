@@ -5,6 +5,8 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
+//#pragma execution_character_set("utf-8")
+
 int main()
 {
     std::cout << "Server Starting...\n";
@@ -21,7 +23,7 @@ int main()
         serverSock.recv(recvMessage);
 
         // 解析接收到的Json数据
-        QByteArray bytes = static_cast<char*>(recvMessage.data());
+        QByteArray bytes(recvMessage.data<char>(), recvMessage.size());
         QJsonDocument jsonDoc = QJsonDocument::fromJson(bytes);
         if (!jsonDoc.isObject())
         {
@@ -31,7 +33,7 @@ int main()
         QString name = jsonObj.value("name").toString();
         int age = jsonObj.value("age").toInt();
         QJsonArray hobbyArray = jsonObj.value("hobby").toArray();
-        std::cout << "name:" << name.toStdString() << " age:" << age;
+        std::cout << "name:" << name.toLocal8Bit().data() << " age:" << age;
         std::cout << " hobby:";
         for (int i = 0; i < hobbyArray.size(); ++i)
         {
@@ -40,7 +42,8 @@ int main()
         std::cout << std::endl;
 
         // 发送消息到客户端
-        zmq::message_t replyMessage(name);
+        QByteArray repArray = name.toLocal8Bit();
+        zmq::message_t replyMessage(repArray.data(), repArray.size());
         serverSock.send(replyMessage, zmq::send_flags::none);
     }
 
