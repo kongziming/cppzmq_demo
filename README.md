@@ -69,7 +69,19 @@ cppzmq_demo
 |  8   | demo08      | Dealer Router                                                |
 |  9   | demo_inproc | 通过inproc的方式进行节点连接                                 |
 |  10  | demo_json   | 使用ZeroMQ发送和接收json数据的示例，该示例使用QJson，依赖Qt库 |
-|  11  | demo_pollin | 轮询的用法                                                   |
+|  11  | demo_pollin | 多个socket进行轮询                                           |
+
+### demo_pollin
+
+Server：服务器
+
+Client1：客户端示例1，可能会造成消息阻塞
+
+Client2：客户端示例2，接收使用dontwait标识，会占用CPU
+
+Client3：客户端示例3，添加1ms延迟，虽然不占用CPU了，但用法不够优雅
+
+Client：正确的客户端示例，使用轮询
 
 ### demo_protobuf
 
